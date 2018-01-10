@@ -1,4 +1,5 @@
-#Phaser Playground
+##Phaser Playground
+
 This is a phaser workspace built on top of [belohlavek's ES6 Boilerplate](https://github.com/belohlavek/phaser-es6-boilerplate).
 
 ## Usage of Phaser ES6 Boilerplate 

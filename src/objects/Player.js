@@ -5,13 +5,17 @@ class Player extends Phaser.Sprite {
         
         this.playerColor = color;
         this.game.physics.arcade.enable(this);
-        this.body.gravity.y = 400;
+        this.body.gravity.y = 800;
         this.body.collideWorldBounds = true;
         this.body.setSize(128, 128, 0, 128); // my assets are weirdly tall
 
         this.scale.setTo(0.5);
         this.anchor.setTo(0.5);
 
+        //Set some properties?
+        this.hasDoubleJump = true;
+        this.upPressed = false;
+        
         this.animations.add('walk', [ this.playerColor + '_walk1.png', this.playerColor + '_walk2.png'], 6, true);
         
         this.game.stage.addChild(this);
@@ -19,6 +23,11 @@ class Player extends Phaser.Sprite {
     
     _update(cursors, playerOnGround) {
         this.body.velocity.x = 0;
+        console.log(this.hasDoubleJump);
+        if(playerOnGround && this.body.touching.down)
+        {
+            this.hasDoubleJump = true;
+        }
 		if (cursors.left.isDown)
 		{
 			this.body.velocity.x = -300;
@@ -37,10 +46,24 @@ class Player extends Phaser.Sprite {
 			this.frameName = this.playerColor + '_stand.png';
 		}
 	
-		if (cursors.up.isDown && this.body.touching.down && playerOnGround)
+		if (cursors.up.isDown && !this.upPressed)
 		{
-			this.body.velocity.y = -500;
-		}
+            this.upPressed = true;
+            if(playerOnGround)
+            {
+                this.body.velocity.y = -500;
+            } 
+            else if(!playerOnGround && this.hasDoubleJump)
+            {
+                this.body.velocity.y = -500;
+                this.hasDoubleJump = false;
+            }
+        }
+        if (!cursors.up.isDown && this.upPressed)
+        {
+            //If up isn't pressed, reset the flag
+            this.upPressed = false;
+        }
 
 		if (this.body.velocity.y !== 0) {
 			this.animations.stop();

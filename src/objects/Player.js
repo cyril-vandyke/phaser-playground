@@ -7,7 +7,7 @@ class Player extends Phaser.Sprite {
         this.game.physics.arcade.enable(this);
         this.body.gravity.y = 800;
         this.body.collideWorldBounds = true;
-        this.body.setSize(128, 128, 0, 128); // my assets are weirdly tall
+        this.body.setSize(100, 128, 14, 128);
 
         this.scale.setTo(0.5);
         this.anchor.setTo(0.5);

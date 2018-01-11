@@ -23,7 +23,6 @@ class Player extends Phaser.Sprite {
     
     _update(cursors, playerOnGround) {
         this.body.velocity.x = 0;
-        console.log(this.hasDoubleJump);
         if(playerOnGround && this.body.touching.down)
         {
             this.hasDoubleJump = true;

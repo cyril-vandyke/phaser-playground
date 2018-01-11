@@ -38,13 +38,18 @@ class Player extends Phaser.Sprite {
 			this.body.velocity.x = 300;
 			this.animations.play('walk');
 			this.scale.x = 0.5;
-		}
+        }
+        else if (cursors.down.isDown && playerOnGround)
+        {
+            this.animations.stop();
+            this.frameName = this.playerColor + '_duck.png';
+        }
 		else
 		{
 			this.animations.stop();
 			this.frameName = this.playerColor + '_stand.png';
 		}
-	
+        
 		if (cursors.up.isDown && !this.upPressed)
 		{
             this.upPressed = true;
